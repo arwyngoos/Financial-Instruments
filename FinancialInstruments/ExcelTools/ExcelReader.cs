@@ -22,11 +22,14 @@ namespace FinancialInstruments.ExcelTools
                 Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
                 Excel.Range xlRange = xlWorksheet.UsedRange;
 
+
+                //RemoveNullObservations(xlRange);
+
                 int rowCount = xlRange.Rows.Count;
 
                 SortedDictionary<DateTime, double> currentObservation = new SortedDictionary<DateTime, double>();
 
-                for (int i = 2; i < rowCount; i++)
+                for (int i = 2; i < Math.Min(200,rowCount); i++)
                 {
                     DateTime date = DateTime.FromOADate((double) xlWorksheet.Range["A" + i.ToString()].Value2);
                     double value = xlWorksheet.Range["B" + i.ToString()].Value2;
@@ -38,6 +41,11 @@ namespace FinancialInstruments.ExcelTools
             }
 
             return instrumentsObservations;
+        }
+
+        public static void RemoveNullObservations(Excel.Range xlRange)
+        {
+
         }
     }
 }
