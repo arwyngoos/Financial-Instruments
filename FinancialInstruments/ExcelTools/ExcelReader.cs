@@ -7,10 +7,10 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace FinancialInstruments.ExcelTools
 {
-    public class ExcelReader
+    public static class ExcelReader
     {
 
-        public SortedDictionary<string, SortedDictionary<DateTime, double>> readExcelFiles(List<string> fileNames, string folder)
+        public static SortedDictionary<string, SortedDictionary<DateTime, double>> readExcelFiles(List<string> fileNames, string folder)
         {
 
             SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = new SortedDictionary<string, SortedDictionary<DateTime, double>>();
@@ -22,9 +22,20 @@ namespace FinancialInstruments.ExcelTools
                 Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
                 Excel.Range xlRange = xlWorksheet.UsedRange;
 
+                int rowCount = xlRange.Rows.Count;
 
+                SortedDictionary<DateTime, double> currentObservation = new SortedDictionary<DateTime, double>();
+
+                for (int i = 2; i < rowCount; i++)
+                {
+                    DateTime date = DateTime.FromOADate((double) xlWorksheet.Range["A" + i.ToString()].Value2);
+                    double value = xlWorksheet.Range["B" + i.ToString()].Value2;
+
+                    currentObservation.Add(date, value);
+                }
+
+                instrumentsObservations.Add(fileName.Replace(".csv", ""), currentObservation);
             }
-
 
             return instrumentsObservations;
         }

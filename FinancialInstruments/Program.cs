@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinancialInstruments.ExcelTools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,10 @@ namespace FinancialInstruments
 
             List<string> fileNames = Utils.Utils.getFileNames(dataSource);
 
+            SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = ExcelReader.readExcelFiles(fileNames, dataSource);
 
 
+            var a = 2;
         }
     }
 }
