@@ -21,15 +21,7 @@ namespace FinancialInstruments.FinancialProducts
 
         public DateTime ValuationDate { get; set; }
 
-        public double Value
-        {
-            get
-            {
-                return GetOptionValue();
-            }
 
-
-        }
 
         public Option(Stock stock, DateTime valuationDate, DateTime maturity, double strike = 100, double riskFreeRate = 2, Enums.OptionType optionType=Enums.OptionType.Call)
         {
@@ -41,25 +33,25 @@ namespace FinancialInstruments.FinancialProducts
             this.Maturity = maturity;
         }
 
-        private double GetOptionValue()
+        public double GetOptionValue(DateTime date)
         {
             double value = 0;
 
             switch (OptionType)
             {
                 case Enums.OptionType.Call:
-                    value = SetCallValue();
+                    value = SetCallValue(date);
                     break;
 
                 case Enums.OptionType.Put:
-                    value =SetPutValue();
+                    value =SetPutValue(date);
                     break;
             }
 
             return value;
         }
 
-        public double SetCallValue()
+        public double SetCallValue(DateTime date)
         {
             double d1 = 1 / (Stock.CurrentVolatility * Math.Sqrt(Maturity.Ticks - ValuationDate.Ticks));
 
@@ -67,7 +59,7 @@ namespace FinancialInstruments.FinancialProducts
             return d1;
         }
 
-        public double SetPutValue()
+        public double SetPutValue(DateTime date)
         {
             double d1 = 1 / (Stock.CurrentVolatility * Math.Sqrt(Maturity.Ticks - ValuationDate.Ticks));
 

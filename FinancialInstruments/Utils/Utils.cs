@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinancialInstruments.FinancialProducts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,29 @@ namespace FinancialInstruments.Utils
             }
 
             return fileNames;
+        }
+
+        public static List<double> SetRandomIntegers(int numberOfInts)
+        {
+            List<double> stockWeights = new List<double>();
+            List<double> stockWeightsReturn = new List<double>();
+
+            Random random = new Random();
+
+            for(int i=0;i<numberOfInts; i++)
+            {
+                stockWeights.Add(random.Next());
+            }
+
+            double totalWeight = stockWeights.Sum(x => x);
+
+            for(int i = 0;i< numberOfInts; i++)
+            {
+                stockWeights.Return(i) = stockWeights.ElementAt(i) / totalWeight;
+            }
+
+            return stockWeightsReturn;
+
         }
     }
 }

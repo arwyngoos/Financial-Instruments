@@ -1,4 +1,5 @@
 ﻿using FinancialInstruments.ExcelTools;
+using FinancialInstruments.FinancialProducts;
 using FinancialInstruments.Helpers;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ namespace FinancialInstruments
 
             StockContainer stockContainer = new StockContainer(instrumentsObservations);
 
+
+
+            Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.count));
 
 
 

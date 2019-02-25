@@ -49,10 +49,13 @@
   <ItemGroup>
     <Compile Include="ExcelTools\ExcelReader.cs" />
     <Compile Include="FinancialProducts\Option.cs" />
+    <Compile Include="FinancialProducts\Portfolio.cs" />
     <Compile Include="FinancialProducts\Stock.cs" />
     <Compile Include="Helpers\StockContainer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RiskMetrics\RiskMetric.cs" />
+    <Compile Include="RiskMetrics\ValueAtRisk.cs" />
     <Compile Include="Utils\Enums.cs" />
     <Compile Include="Utils\Utils.cs" />
   </ItemGroup>

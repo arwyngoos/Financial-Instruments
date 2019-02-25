@@ -15,7 +15,14 @@ namespace FinancialInstruments.FinancialProducts
 
         public SortedDictionary<DateTime, double> Levels { get; set; }
 
-        public double CurrentVolatility { get; set; }
+        public double CurrentVolatility
+        {
+            get
+            {
+                return VolatilityPath.Last().Value;
+            }
+        }
+        public SortedDictionary<DateTime, double> VolatilityPath { get; set; }
 
         public Stock(string name, SortedDictionary<DateTime, double> levels, Enums.VolatilityModels volatilityModel= Enums.VolatilityModels.EWMA)
         {
@@ -55,19 +62,23 @@ namespace FinancialInstruments.FinancialProducts
                     break;
             }
 
-            CurrentVolatility = Math.Sqrt(CurrentVolatility);
+            
         }
 
         private void SetEWMAVolatility()
         {
+
+            SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
             double volatility = 0;
 
             foreach (DateTime date in Returns.Keys)
             {
                 volatility = 0.94 * volatility + 0.06 * Math.Pow(Returns[date], 2);
+                volatilityPath.Add(date, volatility);
+
             }
 
-            this.CurrentVolatility = volatility;
+            this.VolatilityPath = volatilityPath;
         }
 
         private void SetGarchVolatility()
@@ -77,7 +88,19 @@ namespace FinancialInstruments.FinancialProducts
 
         private void SetHistoricalVolatility()
         {
-            this.CurrentVolatility = Returns.Sum(x => Math.Pow(x.Value, 2))/Returns.Count;   
+            SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
+
+            foreach (DateTime date in Returns.Keys)
+            {
+                volatilityPath.Add(date, Returns.Where(x => x.Key <= date).Sum(x => Math.Pow(x.Value, 2))/Returns.Where (x => x.Key<= date).Count());
+            }
+
+            this.VolatilityPath = volatilityPath;
+        }
+
+        public double GetStockValue(DateTime date)
+        {
+            return Levels.Single(x => x.Key == date).Value;
         }
         
 
