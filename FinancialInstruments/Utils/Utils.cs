@@ -40,10 +40,10 @@ namespace FinancialInstruments.Utils
 
             double totalWeight = stockWeights.Sum(x => x);
 
-            for(int i = 0;i< numberOfInts; i++)
-            {
-                stockWeights.Return(i) = stockWeights.ElementAt(i) / totalWeight;
-            }
+            //for(int i = 0;i< numberOfInts; i++)
+            //{
+            //    stockWeights.Return(i) = stockWeights.ElementAt(i) / totalWeight;
+            //}
 
             return stockWeightsReturn;
 

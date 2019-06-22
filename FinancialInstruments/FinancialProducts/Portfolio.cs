@@ -39,7 +39,7 @@ namespace FinancialInstruments.FinancialProducts
         {
             double stockValue = StockList.Sum(x => x.Value.GetStockValue(date));
 
-            double optionValue = OptionList.Sum(x => x.Value.Get);
+            double optionValue = OptionList.Sum(x => x.Value.GetOptionValue(date));
 
             return stockValue + optionValue;
 

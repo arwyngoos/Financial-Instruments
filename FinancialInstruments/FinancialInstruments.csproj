@@ -47,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelTools\ExcelReader.cs" />
+    <Compile Include="Data\ExcelReader.cs" />
+    <Compile Include="Data\WebDownloader.cs" />
     <Compile Include="FinancialProducts\Option.cs" />
     <Compile Include="FinancialProducts\Portfolio.cs" />
     <Compile Include="FinancialProducts\Stock.cs" />

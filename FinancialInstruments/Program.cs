@@ -1,4 +1,5 @@
-﻿using FinancialInstruments.ExcelTools;
+﻿using FinancialInstruments.Data;
+using FinancialInstruments.ExcelTools;
 using FinancialInstruments.FinancialProducts;
 using FinancialInstruments.Helpers;
 using System;
@@ -15,17 +16,18 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            string dataSource = @"C:\Users\argoos\Documents\Arwyn\C# Coding\Git Projects\DataUse";
+            string dataDirectory = @"C:\Users\argoos\Documents\Arwyn\C# Coding\Git Projects\DataUse";
+            string htmlSource = "https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=1558515820&period2=1561194220&interval=1d&events=history&crumb=P9Nfvrt1G2p";
 
-            List<string> fileNames = Utils.Utils.getFileNames(dataSource);
+            WebDownloader.DownloadData(htmlSource, dataDirectory);
 
-            SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = ExcelReader.readExcelFiles(fileNames, dataSource);
+            SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = ExcelReader.ReadExcelFiles(dataDirectory);
 
             StockContainer stockContainer = new StockContainer(instrumentsObservations);
 
 
 
-            Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.count));
+            Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.Count));
 
 
 

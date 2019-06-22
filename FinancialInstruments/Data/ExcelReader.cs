@@ -10,9 +10,10 @@ namespace FinancialInstruments.ExcelTools
     public static class ExcelReader
     {
 
-        public static SortedDictionary<string, SortedDictionary<DateTime, double>> readExcelFiles(List<string> fileNames, string folder)
+        public static SortedDictionary<string, SortedDictionary<DateTime, double>> ReadExcelFiles(string folder)
         {
 
+            List<string> fileNames = Utils.Utils.getFileNames(folder);
             SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = new SortedDictionary<string, SortedDictionary<DateTime, double>>();
 
             foreach(string fileName in fileNames)
