@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excel\ExcelReader.cs" />
+    <Compile Include="FinancialProducts\StockObservation.cs" />
     <Compile Include="Processes\DataObject.cs" />
     <Compile Include="Processes\PredefinedProcesses.cs" />
     <Compile Include="Processes\IProcess.cs" />

@@ -14,8 +14,15 @@ namespace FinancialInstruments.SQL
 
         public static string DataBaseEngine = "NLLT108279";
 
-        public static string DataDirectory = @"C:\Users\argoos\Documents\Arwyn\C# Coding\Git Projects\DataUse";
+        public static string DataDirectory = @"C:\Users\argoos\Documents\Arwyn\C# Coding\Git Projects\Data";
 
         public static string WebDownloadString = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo&datatype=csv";
+
+        public static List<string> ProductCollection = new List<string>
+        {
+            "MSFT",
+            "AAPL",
+            "AMZN"
+        };
     }
 }

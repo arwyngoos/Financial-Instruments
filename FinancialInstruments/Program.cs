@@ -20,7 +20,7 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            List<IProcess> processList = PredefinedProcesses.DownloadFromWeb;
+            List<IProcess> processList = PredefinedProcesses.DownloadFromWebAndWriteToAndReadFromSQL;
             
             foreach(IProcess process in processList)
             {

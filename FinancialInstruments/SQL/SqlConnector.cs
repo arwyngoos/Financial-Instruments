@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Data.SqlClient;
 using System.Linq;
-
+using FinancialInstruments.FinancialProducts;
 
 namespace FinancialInstruments.SQL
 {
@@ -24,7 +24,7 @@ namespace FinancialInstruments.SQL
             
         }
 
-        internal void WriteToDatabase(SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentObservations)
+        internal void WriteToDatabase(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
         {
             DataTable dataTable = CreateDataTableObject(instrumentObservations);
             SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString);
@@ -40,7 +40,7 @@ namespace FinancialInstruments.SQL
             }
         }
 
-        private DataTable CreateDataTableObject(SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentObservations)
+        private DataTable CreateDataTableObject(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
         {
             DateTime rowTimeStamp = DateTime.Now;
             DataTable dataTable = MakeNamesTable();
@@ -52,7 +52,11 @@ namespace FinancialInstruments.SQL
                     DataRow row = dataTable.NewRow();
                     row["Product"] = productId;
                     row["Date"] = date;
-                    row["Value"] = instrumentObservations[productId][date];
+                    row["Open"] = instrumentObservations[productId][date].Open;
+                    row["High"] = instrumentObservations[productId][date].High;
+                    row["Low"] = instrumentObservations[productId][date].Low;
+                    row["Close"] = instrumentObservations[productId][date].Close;
+                    row["Volume"] = instrumentObservations[productId][date].Volume;
                     row["RowTimeStamp"] = rowTimeStamp;
 
                     dataTable.Rows.Add(row);
@@ -78,10 +82,30 @@ namespace FinancialInstruments.SQL
             dateColumn.ColumnName = "Date";
             namesTable.Columns.Add(dateColumn);
 
-            DataColumn valueColumn = new DataColumn();
-            valueColumn.DataType = System.Type.GetType("System.Double");
-            valueColumn.ColumnName = "Value";
-            namesTable.Columns.Add(valueColumn);
+            DataColumn openColumn = new DataColumn();
+            openColumn.DataType = System.Type.GetType("System.Double");
+            openColumn.ColumnName = "Open";
+            namesTable.Columns.Add(openColumn);
+
+            DataColumn highColumn = new DataColumn();
+            highColumn.DataType = System.Type.GetType("System.Double");
+            highColumn.ColumnName = "High";
+            namesTable.Columns.Add(highColumn);
+
+            DataColumn lowColumn = new DataColumn();
+            lowColumn.DataType = System.Type.GetType("System.Double");
+            lowColumn.ColumnName = "Low";
+            namesTable.Columns.Add(lowColumn);
+
+            DataColumn closeColumn = new DataColumn();
+            closeColumn.DataType = System.Type.GetType("System.Double");
+            closeColumn.ColumnName = "Close";
+            namesTable.Columns.Add(closeColumn);
+
+            DataColumn volumeColumn = new DataColumn();
+            volumeColumn.DataType = System.Type.GetType("System.Int32");
+            volumeColumn.ColumnName = "Volume";
+            namesTable.Columns.Add(volumeColumn);
 
             DataColumn timestampColumn = new DataColumn();
             timestampColumn.DataType = System.Type.GetType("System.DateTime");

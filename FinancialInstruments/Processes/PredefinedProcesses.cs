@@ -37,5 +37,13 @@ namespace FinancialInstruments.Processes
         {
             new WebDownloadProcess()
         };
+
+        public static List<IProcess> DownloadFromWebAndWriteToAndReadFromSQL => new List<IProcess>
+        {
+            new WebDownloadProcess(),
+            new ReadExcelProcess(),
+            new WriteToSqlProcess(),
+            new ReadExcelProcess()
+        };
     }
 }

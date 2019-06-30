@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinancialInstruments.FinancialProducts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ namespace FinancialInstruments.Processes
 {
     public static class DataObject
     {
-        public static SortedDictionary<string, SortedDictionary<DateTime, double>> ReadExcelProcessOutput = new SortedDictionary<string, SortedDictionary<DateTime, double>>();
+        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadExcelProcessOutput = new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
 
-        public static SortedDictionary<string, SortedDictionary<DateTime, double>> ReadFromSqlProcessOutput = new SortedDictionary<string, SortedDictionary<DateTime, double>>();
+        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadFromSqlProcessOutput = new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
 
     }
 }
