@@ -20,8 +20,7 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            PredefinedProcesses predefinedProcesses = new PredefinedProcesses();
-            List<IProcess> processList = predefinedProcesses.DownloadFromWeb;
+            List<IProcess> processList = PredefinedProcesses.DownloadFromWeb;
             
             foreach(IProcess process in processList)
             {
@@ -30,12 +29,7 @@ namespace FinancialInstruments
 
 
             //StockContainer stockContainer = new StockContainer(instrumentsObservations);
-
-
-
             //Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.Count));
-
-            var a = DataObject.ReadFromSqlProcessOutput;
 
             Console.Write("The program has ended");
             
