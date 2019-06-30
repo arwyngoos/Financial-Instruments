@@ -1,9 +1,13 @@
-﻿using FinancialInstruments.Data;
+﻿using FinancialInstruments.Excel.Processes;
 using FinancialInstruments.ExcelTools;
 using FinancialInstruments.FinancialProducts;
 using FinancialInstruments.Helpers;
+using FinancialInstruments.Processes;
+using FinancialInstruments.SQL;
+using FinancialInstruments.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,20 +20,22 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            string dataDirectory = @"C:\Users\argoos\Documents\Arwyn\C# Coding\Git Projects\DataUse";
-            string htmlSource = "https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=1558515820&period2=1561194220&interval=1d&events=history&crumb=P9Nfvrt1G2p";
-
-            WebDownloader.DownloadData(htmlSource, dataDirectory);
-
-            SortedDictionary<string, SortedDictionary<DateTime, double>> instrumentsObservations = ExcelReader.ReadExcelFiles(dataDirectory);
-
-            StockContainer stockContainer = new StockContainer(instrumentsObservations);
-
+            PredefinedProcesses predefinedProcesses = new PredefinedProcesses();
+            List<IProcess> processList = predefinedProcesses.DownloadFromWeb;
+            
+            foreach(IProcess process in processList)
+            {
+                process.Run();
+            }
 
 
-            Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.Count));
+            //StockContainer stockContainer = new StockContainer(instrumentsObservations);
 
 
+
+            //Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.Count));
+
+            var a = DataObject.ReadFromSqlProcessOutput;
 
             Console.Write("The program has ended");
             
