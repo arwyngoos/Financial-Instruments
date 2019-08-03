@@ -46,7 +46,25 @@ namespace FinancialInstruments.Utils
             //}
 
             return stockWeightsReturn;
+        }
 
+        public static List<DateTime> CreateDailyDateTimeGrid(DateTime startDate, DateTime endDate)
+        {
+            if (!(startDate < endDate))
+            {
+                throw new Exception($"Failed: the startDate {startDate} should be before the endDate {endDate}");
+            }
+
+            List<DateTime> dates = new List<DateTime>();
+            DateTime date = startDate;
+
+            while (date <= endDate)
+            {
+                dates.Add(date);
+                date = date.AddDays(1);
+            }
+
+            return dates;
         }
     }
 }

@@ -1,16 +1,7 @@
 ﻿using FinancialInstruments.Excel.Processes;
-using FinancialInstruments.ExcelTools;
-using FinancialInstruments.FinancialProducts;
-using FinancialInstruments.Helpers;
 using FinancialInstruments.Processes;
-using FinancialInstruments.SQL;
-using FinancialInstruments.Utils;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialInstruments
 {
@@ -20,7 +11,7 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            List<IProcess> processList = PredefinedProcesses.ReadExcelAndWriteToSql;
+            List<IProcess> processList = PredefinedProcesses.ReadFromSqlAndCreateFinancialInstuments;
             
             foreach(IProcess process in processList)
             {
@@ -29,7 +20,6 @@ namespace FinancialInstruments
             }
 
             Console.Write("The program has ended");
-            
         }
     }
 }

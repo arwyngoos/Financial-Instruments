@@ -15,5 +15,6 @@ namespace FinancialInstruments.Processes
 
         public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadJsonProcessOutput;
 
+        public static SortedDictionary<string, Stock> Stocks;
     }
 }

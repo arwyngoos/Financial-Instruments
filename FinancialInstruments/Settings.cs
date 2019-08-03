@@ -24,12 +24,12 @@ namespace FinancialInstruments.SQL
             "AMZN"
         };
 
-        public static Enums.InputDataType InputDataType = Enums.InputDataType.CSV;
+        public static Enums.InputDataType InputDataType = Enums.InputDataType.JSON;
 
         public static string ApiKey = "1C3WP3BH56DF8J1R";
 
         public static string TimeSeriesGrid = "TIME_SERIES_DAILY";
 
-        public static Enums.OutputSize OutputSize = Enums.OutputSize.Compact;
+        public static Enums.OutputSize OutputSize = Enums.OutputSize.Full;
     }
 }

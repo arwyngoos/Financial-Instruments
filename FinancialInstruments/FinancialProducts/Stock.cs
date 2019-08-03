@@ -11,99 +11,65 @@ namespace FinancialInstruments.FinancialProducts
     {
         public string Name { get; set; }
 
+        public SortedDictionary<DateTime, StockObservation> Observations { get; set; }
+
         public SortedDictionary<DateTime, double> Returns { get; set; }
 
-        public SortedDictionary<DateTime, double> Levels { get; set; }
+        public SortedDictionary<DateTime, double> EWMAVolatilityPath { get; set; }
 
-        public double CurrentVolatility
+        public OptionPrice OptionPrice;
+
+        public double CurrentValue => Observations.Last().Value.Close;
+
+        public double CurrentVolatility => EWMAVolatilityPath.Last().Value;
+
+        public Stock(string name, SortedDictionary<DateTime, StockObservation> observations)
         {
-            get
-            {
-                return VolatilityPath.Last().Value;
-            }
-        }
-        public SortedDictionary<DateTime, double> VolatilityPath { get; set; }
+            Name = name;
+            Observations = observations;
 
-        public Stock(string name, SortedDictionary<DateTime, double> levels, Enums.VolatilityModels volatilityModel= Enums.VolatilityModels.EWMA)
-        {
-            this.Name = name;
-            this.Levels = levels;
-
-            Returns = SetReturns();
-            SetCurrentVolatility(volatilityModel);
+            Returns = GetReturns();
+            EWMAVolatilityPath = GetEWMAVolatility();
         }
 
-        private SortedDictionary<DateTime, double> SetReturns()
+        private SortedDictionary<DateTime, double> GetReturns()
         {
             SortedDictionary<DateTime, double> returns = new SortedDictionary<DateTime, double>();
 
-            for(int i =0;i <Levels.Keys.Count-1;i++)
+            foreach (DateTime date in Observations.Keys)
             {
-                DateTime date = Levels.ElementAt(i).Key;
-                returns.Add(date, Math.Log(Levels.ElementAt(i).Value) - Math.Log(Levels.ElementAt(i + 1).Value));
+                returns.Add(date, 100 * (Math.Log(Observations[date].Close) - Math.Log(Observations[date].Open)));
             }
 
             return returns;
         }
 
-        public void SetCurrentVolatility(Enums.VolatilityModels volatilityModels)
-        {
-            switch (volatilityModels)
-            {
-                case Enums.VolatilityModels.EWMA:
-                    SetEWMAVolatility();
-                    break;
-
-                case Enums.VolatilityModels.Garch:
-                    SetGarchVolatility();
-                    break;
-                case Enums.VolatilityModels.Historical:
-                    SetHistoricalVolatility();
-                    break;
-            }
-
-            
-        }
-
-        private void SetEWMAVolatility()
-        {
-
-            SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
-            double volatility = 0;
-
-            foreach (DateTime date in Returns.Keys)
-            {
-                volatility = 0.94 * volatility + 0.06 * Math.Pow(Returns[date], 2);
-                volatilityPath.Add(date, volatility);
-
-            }
-
-            this.VolatilityPath = volatilityPath;
-        }
-
-        private void SetGarchVolatility()
-        {
-
-        }
-
-        private void SetHistoricalVolatility()
+        private SortedDictionary<DateTime, double> GetEWMAVolatility()
         {
             SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
+            List<DateTime> dates = Returns.Keys.ToList();
 
-            foreach (DateTime date in Returns.Keys)
+            volatilityPath.Add(Returns.Keys.First(), Math.Pow(100 * Returns.Values.First(), 2));
+
+            for (int i = 1; i < dates.Count; i++)
             {
-                volatilityPath.Add(date, Returns.Where(x => x.Key <= date).Sum(x => Math.Pow(x.Value, 2))/Returns.Where (x => x.Key<= date).Count());
+                volatilityPath[dates[i]] = Math.Sqrt(0.94 * volatilityPath[dates[i - 1]] + 0.06 * Math.Pow(Returns[dates[i]], 2));
             }
 
-            this.VolatilityPath = volatilityPath;
+            return volatilityPath;
         }
 
-        public double GetStockValue(DateTime date)
-        {
-            return Levels.Single(x => x.Key == date).Value;
-        }
-        
 
-        
-    }
+    //private void SetHistoricalVolatility()
+    //{
+    //    SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
+
+    //    foreach (DateTime date in Returns.Keys)
+    //    {
+    //        volatilityPath.Add(date, Returns.Where(x => x.Key <= date).Sum(x => Math.Pow(x.Value, 2))/Returns.Where (x => x.Key<= date).Count());
+    //    }
+
+    //    this.VolatilityPath = volatilityPath;
+    //}
+}
 }

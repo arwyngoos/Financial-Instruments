@@ -34,5 +34,15 @@ namespace FinancialInstruments.Utils
 
             return result;
         }
+
+        public static double Years(this TimeSpan timeSpan)
+        {
+            return timeSpan.TotalDays / 365;
+        }
+
+        public static double Mean(this List<double> numbers)
+        {
+            return numbers.Sum() / numbers.Count;
+        }
     }
 }

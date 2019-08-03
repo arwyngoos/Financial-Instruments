@@ -58,5 +58,11 @@ namespace FinancialInstruments.Processes
             new ReadJsonProcess(),
             new WriteToSqlProcess()
         };
+
+        public static List<IProcess> ReadFromSqlAndCreateFinancialInstuments => new List<IProcess>
+        {
+            new ReadFromSqlProcess(),
+            new CreateFinancialInstrumentsProcess()
+        };
     }
 }
