@@ -71,8 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excel\ExcelReader.cs" />
+    <Compile Include="FinancialProducts\BlackScholesOption.cs" />
+    <Compile Include="FinancialProducts\EuropeanCall.cs" />
+    <Compile Include="FinancialProducts\EuropeanCustom.cs" />
+    <Compile Include="FinancialProducts\EuropeanPut.cs" />
     <Compile Include="FinancialProducts\MonteCarloSimulation.cs" />
-    <Compile Include="FinancialProducts\OptionPrice.cs" />
+    <Compile Include="FinancialProducts\Option.cs" />
     <Compile Include="FinancialProducts\StockObservation.cs" />
     <Compile Include="Json\JsonReader.cs" />
     <Compile Include="Processes\CreateFinancialInstrumentsProcess.cs" />

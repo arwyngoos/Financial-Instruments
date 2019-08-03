@@ -62,13 +62,13 @@ namespace FinancialInstruments.FinancialProducts
                    previousValue * DailyVolatility * innovation;
         }
 
-        public double GetValueAtDate(DateTime maturity, Func<double, double> payOffFunction)
+        public double GetValueAtDate(DateTime valuationDate, Func<double, double> payOffFunction)
         {
             List<double> payOffs = new List<double>();
 
             foreach(int simulationNumber in MonteCarloPaths.Keys)
             {
-                payOffs.Add(payOffFunction(MonteCarloPaths[simulationNumber][maturity]));
+                payOffs.Add(payOffFunction(MonteCarloPaths[simulationNumber][valuationDate]));
             }
 
             return payOffs.Mean();

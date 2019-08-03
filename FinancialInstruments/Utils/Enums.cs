@@ -18,7 +18,8 @@ namespace FinancialInstruments.Utils
         public enum OptionType
         {
             Call, 
-            Put
+            Put,
+            Custom
         }
 
         public enum InputDataType

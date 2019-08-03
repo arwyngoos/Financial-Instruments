@@ -17,7 +17,7 @@ namespace FinancialInstruments.FinancialProducts
 
         public SortedDictionary<DateTime, double> EWMAVolatilityPath { get; set; }
 
-        public OptionPrice OptionPrice;
+        public Option OptionPrice;
 
         public double CurrentValue => Observations.Last().Value.Close;
 
