@@ -24,12 +24,9 @@ namespace FinancialInstruments
             
             foreach(IProcess process in processList)
             {
+                Console.WriteLine($"Running process: {process.GetType().Name}");
                 process.Run();
             }
-
-
-            //StockContainer stockContainer = new StockContainer(instrumentsObservations);
-            //Portfolio portFolio = new Portfolio(stockContainer, Utils.Utils.SetRandomIntegers(stockContainer.Stocks.Count), Utils.Utils.SetRandomIntegers(stockContainer.Options.Count));
 
             Console.Write("The program has ended");
             

@@ -10,7 +10,6 @@ namespace FinancialInstruments.SQL
     {
         private string connectionString;
 
-
         public SqlConnector()
         {
             connectionString = 
@@ -24,23 +23,18 @@ namespace FinancialInstruments.SQL
         internal void WriteToDatabase(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
         {
             DataTable dataTable = CreateDataTableObject(instrumentObservations);
+            WriteTableToDataBase(dataTable);
+        }
 
-
+        private void WriteTableToDataBase(DataTable dataTable)
+        {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
                 sqlConnection.Open();
                 using (SqlBulkCopy copy = new SqlBulkCopy(sqlConnection))
                 {
                     copy.DestinationTableName = dataTable.TableName;
-
-                    copy.ColumnMappings.Add("Product", "Product");
-                    copy.ColumnMappings.Add("Date", "Date");
-                    copy.ColumnMappings.Add("Open", "Open");
-                    copy.ColumnMappings.Add("High", "High");
-                    copy.ColumnMappings.Add("Low", "Low");
-                    copy.ColumnMappings.Add("Close", "Close");
-                    copy.ColumnMappings.Add("Volume", "Volume");
-                    copy.ColumnMappings.Add("RowTimeStamp", "RowTimeStamp");
+                    SetColumnMappings(copy);
 
                     try
                     {
@@ -54,7 +48,18 @@ namespace FinancialInstruments.SQL
             }
             SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString);
 
+        }
 
+        private void SetColumnMappings(SqlBulkCopy copy)
+        {
+            copy.ColumnMappings.Add("Product", "Product");
+            copy.ColumnMappings.Add("Date", "Date");
+            copy.ColumnMappings.Add("Open", "Open");
+            copy.ColumnMappings.Add("High", "High");
+            copy.ColumnMappings.Add("Low", "Low");
+            copy.ColumnMappings.Add("Close", "Close");
+            copy.ColumnMappings.Add("Volume", "Volume");
+            copy.ColumnMappings.Add("RowTimeStamp", "RowTimeStamp");
         }
 
         private DataTable CreateDataTableObject(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
