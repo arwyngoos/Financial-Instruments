@@ -20,5 +20,17 @@ namespace FinancialInstruments.Utils
             Call, 
             Put
         }
+
+        public enum InputDataType
+        {
+            CSV,
+            JSON
+        }
+
+        public enum OutputSize
+        {
+            Compact, 
+            Full
+        }
     }
 }

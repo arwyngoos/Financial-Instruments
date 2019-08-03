@@ -11,10 +11,10 @@ namespace FinancialInstruments.Utils
     public static class Utils
     {
 
-        public static List<string> getFileNames(string path)
+        public static List<string> GetFileNames(string path, Enums.InputDataType inputDataType)
         {
             DirectoryInfo d = new DirectoryInfo(path);//Assuming Test is your Folder
-            FileInfo[] Files = d.GetFiles("*.csv"); //Getting Text files
+            FileInfo[] Files = d.GetFiles($"*.{inputDataType.ToString().ToLower()}"); //Getting Text files
 
             List<string> fileNames = new List<string>();
 

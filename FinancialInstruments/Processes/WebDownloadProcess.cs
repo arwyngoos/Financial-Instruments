@@ -12,8 +12,7 @@ namespace FinancialInstruments.Processes
     {
         public void Run()
         {
-            WebDataDownloader webDataDownloader = new WebDataDownloader();
-            webDataDownloader.DownloadFromWeb();
+            WebDataDownloader.DownloadFromWeb();
         }
     }
 }

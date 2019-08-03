@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinancialInstruments.Utils;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace FinancialInstruments.ExcelTools
@@ -15,7 +16,13 @@ namespace FinancialInstruments.ExcelTools
         public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadExcelFiles()
         {
             string folder = Settings.DataDirectory;
-            List<string> fileNames = Utils.Utils.getFileNames(folder);
+
+            if (Settings.InputDataType != Enums.InputDataType.CSV)
+            {
+                throw  new Exception($"The inputdate type {Settings.InputDataType.ToString()} is not csv, but the excel reader is called.");
+            }
+
+            List<string> fileNames = Utils.Utils.GetFileNames(folder, Settings.InputDataType);
             SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentsObservations = new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
 
             foreach(string fileName in fileNames)
@@ -37,17 +44,22 @@ namespace FinancialInstruments.ExcelTools
                 {
                     DateTime date = DateTime.FromOADate((double) xlWorksheet.Range["A" + i.ToString()].Value2);
                     double open = xlWorksheet.Range["B" + i.ToString()].Value2;
-                    double high = xlWorksheet.Range["B" + i.ToString()].Value2;
-                    double low = xlWorksheet.Range["B" + i.ToString()].Value2;
-                    double close = xlWorksheet.Range["B" + i.ToString()].Value2;
-                    int volume = Convert.ToInt32(xlWorksheet.Range["B" + i.ToString()].Value2);
+                    double high = xlWorksheet.Range["C" + i.ToString()].Value2;
+                    double low = xlWorksheet.Range["D" + i.ToString()].Value2;
+                    double close = xlWorksheet.Range["E" + i.ToString()].Value2;
+                    int volume = Convert.ToInt32(xlWorksheet.Range["F" + i.ToString()].Value2);
 
 
                     currentObservation.Add(date, new StockObservation(date, open, high, low, close, volume));
                 }
 
                 instrumentsObservations.Add(fileName.Replace(".csv", ""), currentObservation);
+
+                xlApp.Quit();
+                xlWorkbook.Close();
+
             }
+            
 
             return instrumentsObservations;
         }

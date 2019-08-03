@@ -45,5 +45,18 @@ namespace FinancialInstruments.Processes
             new WriteToSqlProcess(),
             new ReadExcelProcess()
         };
+
+        public static List<IProcess> DownloadFromWebAndReadJson => new List<IProcess>
+        {
+            new WebDownloadProcess(),
+            new ReadJsonProcess()
+        };
+
+        public static List<IProcess> DownloadFromWebReadJsonAndWriteToSql => new List<IProcess>
+        {
+            new WebDownloadProcess(),
+            new ReadJsonProcess(),
+            new WriteToSqlProcess()
+        };
     }
 }

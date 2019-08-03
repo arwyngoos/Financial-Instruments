@@ -22,7 +22,7 @@ namespace FinancialInstruments.Utils
                 double high = (double)row.Field<decimal>("High");
                 double low = (double)row.Field<decimal>("Low");
                 double close = (double)row.Field<decimal>("close");
-                int volume = row.Field<Int32>("Volume");
+                int volume = Convert.ToInt32(row.Field<decimal>("Volume"));
 
                 if (!result.ContainsKey(productId))
                 {

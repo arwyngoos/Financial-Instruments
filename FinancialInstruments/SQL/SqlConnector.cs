@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Data.SqlClient;
-using System.Linq;
 using FinancialInstruments.FinancialProducts;
 
 namespace FinancialInstruments.SQL
@@ -15,29 +13,48 @@ namespace FinancialInstruments.SQL
 
         public SqlConnector()
         {
-            connectionString = "server=" + Settings.DataBaseEngine + ";" + // Network address
+            connectionString = 
+                        "server=" + Settings.DataBaseEngine + ";" + // Network address
                         "Trusted_connection=true;" + // Secured by Windows Authentication or SSPI
                         "database=" + Settings.DataBase + ";" + // Select 'database' associated with teh connection server
                         "connection timeout = 30;" + // Connection time-out
-                        "Integrated Security=SSPI";             //
-
-            
+                        "Integrated Security=SSPI";             
         }
 
         internal void WriteToDatabase(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
         {
             DataTable dataTable = CreateDataTableObject(instrumentObservations);
+
+
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlBulkCopy copy = new SqlBulkCopy(sqlConnection))
+                {
+                    copy.DestinationTableName = dataTable.TableName;
+
+                    copy.ColumnMappings.Add("Product", "Product");
+                    copy.ColumnMappings.Add("Date", "Date");
+                    copy.ColumnMappings.Add("Open", "Open");
+                    copy.ColumnMappings.Add("High", "High");
+                    copy.ColumnMappings.Add("Low", "Low");
+                    copy.ColumnMappings.Add("Close", "Close");
+                    copy.ColumnMappings.Add("Volume", "Volume");
+                    copy.ColumnMappings.Add("RowTimeStamp", "RowTimeStamp");
+
+                    try
+                    {
+                        copy.WriteToServer(dataTable);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception(e.Message);
+                    }
+                }
+            }
             SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString);
 
-            bulkCopy.DestinationTableName = dataTable.TableName;
-            try
-            {
-                bulkCopy.WriteToServer(dataTable);
-            }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+
         }
 
         private DataTable CreateDataTableObject(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentObservations)
@@ -103,7 +120,7 @@ namespace FinancialInstruments.SQL
             namesTable.Columns.Add(closeColumn);
 
             DataColumn volumeColumn = new DataColumn();
-            volumeColumn.DataType = System.Type.GetType("System.Int32");
+            volumeColumn.DataType = System.Type.GetType("System.Double");
             volumeColumn.ColumnName = "Volume";
             namesTable.Columns.Add(volumeColumn);
 
