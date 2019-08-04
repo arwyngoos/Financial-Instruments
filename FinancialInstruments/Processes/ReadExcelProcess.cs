@@ -1,12 +1,6 @@
-﻿using FinancialInstruments.ExcelTools;
-using FinancialInstruments.Processes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FinancialInstruments.Excel;
 
-namespace FinancialInstruments.Excel.Processes
+namespace FinancialInstruments.Processes
 {
     public class ReadExcelProcess : IProcess
     {

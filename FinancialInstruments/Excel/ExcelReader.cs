@@ -1,14 +1,9 @@
-﻿using FinancialInstruments.FinancialProducts;
-using FinancialInstruments.SQL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FinancialInstruments.FinancialProducts;
 using FinancialInstruments.Utilities;
-using Excel = Microsoft.Office.Interop.Excel;
 
-namespace FinancialInstruments.ExcelTools
+namespace FinancialInstruments.Excel
 {
     public static class ExcelReader
     {
@@ -17,12 +12,12 @@ namespace FinancialInstruments.ExcelTools
         {
             string folder = Settings.DataDirectory;
 
-            if (Settings.InputDataType != Enums.InputDataType.CSV)
+            if (Settings.InputDataType != Enums.InputDataType.Csv)
             {
                 throw  new Exception($"The inputdate type {Settings.InputDataType.ToString()} is not csv, but the excel reader is called.");
             }
 
-            List<string> fileNames = Utilities.Utils.GetFileNames(folder, Settings.InputDataType);
+            List<string> fileNames = Utils.GetFileNames(folder, Settings.InputDataType);
             SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentsObservations = new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
 
             foreach(string fileName in fileNames)

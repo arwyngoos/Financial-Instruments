@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FinancialInstruments.FinancialProducts;
-using FinancialInstruments.SQL;
 using FinancialInstruments.Utilities;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace FinancialInstruments.Json
@@ -18,13 +14,13 @@ namespace FinancialInstruments.Json
         {
             string folder = Settings.DataDirectory;
 
-            if (Settings.InputDataType != Enums.InputDataType.JSON)
+            if (Settings.InputDataType != Enums.InputDataType.Json)
             {
                 throw new Exception(
                     $"Failed: the data type is {Settings.InputDataType.ToString()} but the Json reader process is called");
             }
 
-            List<string> fileNames = Utilities.Utils.GetFileNames(folder, Settings.InputDataType);
+            List<string> fileNames = Utils.GetFileNames(folder, Settings.InputDataType);
 
             SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentsObservations =
                 new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
@@ -46,8 +42,9 @@ namespace FinancialInstruments.Json
             JProperty timeSeriesData = properties.Single(x => x.Name.Contains("Time Series"));
             JToken timeSeriesContent = timeSeriesData.Children().Single();
 
-            foreach (JProperty dataPoint in timeSeriesContent)
+            foreach (var jToken in timeSeriesContent)
             {
+                var dataPoint = (JProperty) jToken;
                 stockObservation.Add(DateTime.Parse(dataPoint.Name), ParseStockObservation(dataPoint));
             }
 

@@ -1,41 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accord.Statistics.Distributions.Univariate;
+using System.Dynamic;
 using FinancialInstruments.Utilities;
 
 namespace FinancialInstruments.FinancialProducts
 {
     public abstract class Option
     {
-        public double MonteCarloValue;
+        public double MonteCarloValue { get; private set; }
 
-        public double Strike;
+        public double Strike { get; }
 
-        public Enums.OptionType OptionType;
+        public Enums.OptionType OptionType { get; }
 
         public double AnnualVolatility => Math.Sqrt(365) * DailyVolatility;
 
-        public double DailyVolatility;
+        public double DailyVolatility { get; }
 
-        public double RiskFreeRate;
+        public double RiskFreeRate { get; }
 
-        public double StockPrice;
+        public double StockPrice { get; }
 
-        public DateTime Maturity;
+        public DateTime Maturity { get; }
 
-        public MonteCarloSimulation MonteCarloSimulation;
+        public MonteCarloSimulation MonteCarloSimulation { get; private set; }
 
-        public DateTime ValuationDate;
+        public DateTime ValuationDate { get; }
 
         public TimeSpan ValuationTimeSpan => Maturity - ValuationDate;
 
-        public Func<double, double> PayOffFunction;
+        public Func<double, double> PayOffFunction { get; }
 
-        public Option(
+        protected Option(
             double strike, 
             double dailyVolatility, 
             double riskFreeRate, 

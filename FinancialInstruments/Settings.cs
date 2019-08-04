@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FinancialInstruments.Utilities;
 
-namespace FinancialInstruments.SQL
+namespace FinancialInstruments
 {
     public class Settings
     {
@@ -24,7 +20,7 @@ namespace FinancialInstruments.SQL
             "AMZN"
         };
 
-        public static Enums.InputDataType InputDataType = Enums.InputDataType.JSON;
+        public static Enums.InputDataType InputDataType = Enums.InputDataType.Json;
 
         public static string ApiKey = "1C3WP3BH56DF8J1R";
 

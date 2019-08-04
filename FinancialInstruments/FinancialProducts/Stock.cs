@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinancialInstruments.FinancialProducts
 {
     public class Stock
     {
-        public string Name { get; set; }
+        public string Name { get; }
 
-        public SortedDictionary<DateTime, StockObservation> Observations { get; set; }
+        public SortedDictionary<DateTime, StockObservation> Observations { get; }
 
-        public SortedDictionary<DateTime, double> Returns { get; set; }
+        public SortedDictionary<DateTime, double> Returns { get; }
 
-        public SortedDictionary<DateTime, double> EWMAVolatilityPath { get; set; }
+        public SortedDictionary<DateTime, double> EwmaVolatilityPath { get; }
 
         public Option OptionPrice;
 
@@ -23,7 +20,7 @@ namespace FinancialInstruments.FinancialProducts
 
         public DateTime LastObservation => Observations.Last().Key;
 
-        public double CurrentVolatility => EWMAVolatilityPath.Last().Value;
+        public double CurrentVolatility => EwmaVolatilityPath.Last().Value;
 
         public Stock(string name, SortedDictionary<DateTime, StockObservation> observations)
         {
@@ -31,7 +28,7 @@ namespace FinancialInstruments.FinancialProducts
             Observations = observations;
 
             Returns = GetReturns();
-            EWMAVolatilityPath = GetEWMAVolatility();
+            EwmaVolatilityPath = GetEwmaVolatility();
         }
 
         private SortedDictionary<DateTime, double> GetReturns()
@@ -46,7 +43,7 @@ namespace FinancialInstruments.FinancialProducts
             return returns;
         }
 
-        private SortedDictionary<DateTime, double> GetEWMAVolatility()
+        private SortedDictionary<DateTime, double> GetEwmaVolatility()
         {
             SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
             List<DateTime> dates = Returns.Keys.ToList();

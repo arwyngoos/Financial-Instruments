@@ -1,9 +1,4 @@
-﻿using FinancialInstruments.Excel.Processes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FinancialInstruments.Processes
 {
@@ -38,7 +33,7 @@ namespace FinancialInstruments.Processes
             new WebDownloadProcess()
         };
 
-        public static List<IProcess> DownloadFromWebAndWriteToAndReadFromSQL => new List<IProcess>
+        public static List<IProcess> DownloadFromWebAndWriteToAndReadFromSql => new List<IProcess>
         {
             new WebDownloadProcess(),
             new ReadExcelProcess(),

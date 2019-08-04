@@ -1,6 +1,5 @@
-﻿namespace FinancialInstruments.Excel.Processes
+﻿namespace FinancialInstruments.Processes
 {
-    using System;
     public interface IProcess
     {
         void Run();

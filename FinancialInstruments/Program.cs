@@ -1,5 +1,4 @@
-﻿using FinancialInstruments.Excel.Processes;
-using FinancialInstruments.Processes;
+﻿using FinancialInstruments.Processes;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ namespace FinancialInstruments
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 

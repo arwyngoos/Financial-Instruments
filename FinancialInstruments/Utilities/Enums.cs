@@ -5,7 +5,7 @@
         public enum VolatilityModels
         {
             Garch,
-            EWMA,
+            Ewma,
             Historical
         }
 
@@ -18,8 +18,8 @@
 
         public enum InputDataType
         {
-            CSV,
-            JSON
+            Csv,
+            Json
         }
 
         public enum OutputSize

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accord.Statistics.Distributions.Univariate;
 using FinancialInstruments.Utilities;
 
 namespace FinancialInstruments.FinancialProducts
@@ -21,8 +17,6 @@ namespace FinancialInstruments.FinancialProducts
         public DateTime ValuationDate;
 
         public DateTime MaturityDate;
-
-        public TimeSpan ValuationTimeSpan => MaturityDate - ValuationDate;
 
         public MonteCarloSimulation(double annualVolatility, double riskFreeRate, double stockPrice, DateTime valuationDate, DateTime maturityDate)
         {
@@ -42,7 +36,7 @@ namespace FinancialInstruments.FinancialProducts
         {
             SortedDictionary<DateTime, double> simulatedPath = new SortedDictionary<DateTime, double>();
 
-            List<DateTime> dates = Utilities.Utils.CreateDailyDateTimeGrid(ValuationDate, MaturityDate);
+            List<DateTime> dates = Utils.CreateDailyDateTimeGrid(ValuationDate, MaturityDate);
             List<double> randomNumbers = Statistics.GenerateStandardNormalRandomNumbers(dates.Count - 1);
 
             simulatedPath.Add(ValuationDate, StockPrice);
