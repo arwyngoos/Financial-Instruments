@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Accord.Statistics.Distributions.Univariate;
 using FinancialInstruments.Utilities;
-using FinancialInstruments.Utils;
 
 namespace FinancialInstruments.FinancialProducts
 {
