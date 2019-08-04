@@ -22,7 +22,7 @@ namespace FinancialInstruments.ExcelTools
                 throw  new Exception($"The inputdate type {Settings.InputDataType.ToString()} is not csv, but the excel reader is called.");
             }
 
-            List<string> fileNames = Utils.Utils.GetFileNames(folder, Settings.InputDataType);
+            List<string> fileNames = Utilities.Utils.GetFileNames(folder, Settings.InputDataType);
             SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentsObservations = new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();
 
             foreach(string fileName in fileNames)

@@ -11,7 +11,7 @@ namespace FinancialInstruments
         {
             Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
 
-            List<IProcess> processList = PredefinedProcesses.ReadFromSqlAndCreateFinancialInstuments;
+            List<IProcess> processList = PredefinedProcesses.ReadFromSqlAndCreateFinancialInstruments;
             
             foreach(IProcess process in processList)
             {

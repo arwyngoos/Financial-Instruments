@@ -24,7 +24,7 @@ namespace FinancialInstruments.Json
                     $"Failed: the data type is {Settings.InputDataType.ToString()} but the Json reader process is called");
             }
 
-            List<string> fileNames = Utils.Utils.GetFileNames(folder, Settings.InputDataType);
+            List<string> fileNames = Utilities.Utils.GetFileNames(folder, Settings.InputDataType);
 
             SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> instrumentsObservations =
                 new SortedDictionary<string, SortedDictionary<DateTime, StockObservation>>();

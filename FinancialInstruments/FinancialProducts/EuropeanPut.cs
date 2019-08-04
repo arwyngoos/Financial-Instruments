@@ -10,14 +10,8 @@ namespace FinancialInstruments.FinancialProducts
     public class EuropeanPut : BlackScholesOption
     {
         public EuropeanPut(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate)
-            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, Enums.OptionType.Put)
+            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, Enums.OptionType.Put, input => Math.Max(input - strike, 0))
         {
-            PayOffFunction = EuropeanPutPayOff;
         }
-
-        public readonly Func<double, double> EuropeanPutPayOff = delegate (double stockPrice)
-        {
-            return Math.Max(stockPrice - Strike, 0);
-        };
     }
 }

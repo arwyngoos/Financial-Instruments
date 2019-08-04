@@ -9,17 +9,9 @@ namespace FinancialInstruments.FinancialProducts
 {
     public class EuropeanCall : BlackScholesOption
     {
-        public Enums.OptionType OptionType = Enums.OptionType.Call;
-
         public EuropeanCall(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate)
-            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, Enums.OptionType.Call)
+            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, Enums.OptionType.Call, input => Math.Max(input - strike, 0))
         {
-            PayOffFunction = EuropeanCallPayOff;
         }
-
-        public readonly Func<double, double> EuropeanCallPayOff = delegate (double stockPrice)
-        {
-            return Math.Max(stockPrice - Strike, 0);
-        };
     }
 }

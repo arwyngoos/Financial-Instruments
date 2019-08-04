@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Accord.Statistics.Distributions.Univariate;
-using FinancialInstruments.Utils;
+using FinancialInstruments.Utilities;
 
 namespace FinancialInstruments.FinancialProducts
 {
@@ -12,7 +12,7 @@ namespace FinancialInstruments.FinancialProducts
     {
         public SortedDictionary<int, SortedDictionary<DateTime, double>> MonteCarloPaths = new SortedDictionary<int, SortedDictionary<DateTime, double>>();
 
-        public double DailyVolatility;
+        public double AnnualVolatility;
 
         public double RiskFreeRate;
 
@@ -22,9 +22,11 @@ namespace FinancialInstruments.FinancialProducts
 
         public DateTime MaturityDate;
 
-        public MonteCarloSimulation(double dailyVolatility, double riskFreeRate, double stockPrice, DateTime valuationDate, DateTime maturityDate)
+        public TimeSpan ValuationTimeSpan => MaturityDate - ValuationDate;
+
+        public MonteCarloSimulation(double annualVolatility, double riskFreeRate, double stockPrice, DateTime valuationDate, DateTime maturityDate)
         {
-            DailyVolatility = dailyVolatility;
+            AnnualVolatility = annualVolatility;
             RiskFreeRate = riskFreeRate;
             StockPrice = stockPrice;
             MaturityDate = maturityDate;
@@ -40,14 +42,11 @@ namespace FinancialInstruments.FinancialProducts
         {
             SortedDictionary<DateTime, double> simulatedPath = new SortedDictionary<DateTime, double>();
 
-            List<DateTime> dates = Utils.Utils.CreateDailyDateTimeGrid(ValuationDate, MaturityDate);
-
-            NormalDistribution normalDistribution = new NormalDistribution();
-            List<double> randomNumbers = Utils.Statistics.GenerateStandardNormalRandomNumbers(dates.Count - 1);
+            List<DateTime> dates = Utilities.Utils.CreateDailyDateTimeGrid(ValuationDate, MaturityDate);
+            List<double> randomNumbers = Statistics.GenerateStandardNormalRandomNumbers(dates.Count - 1);
 
             simulatedPath.Add(ValuationDate, StockPrice);
-
-            for(int i = 1; i < dates.Count; i++)
+            for (int i = 1; i < dates.Count; i++)
             {
                 simulatedPath.Add(dates[i], IncrementSimulationToNextStep(simulatedPath[dates[i-1]], randomNumbers[i-1]));
             }
@@ -57,9 +56,11 @@ namespace FinancialInstruments.FinancialProducts
 
         private double IncrementSimulationToNextStep(double previousValue, double innovation)
         {
+            return previousValue * Math.Exp(((RiskFreeRate - 0.5 * Math.Pow(AnnualVolatility, 2)) * (1d / 365d)) 
+                                            + AnnualVolatility * Math.Sqrt(1d / 365d) * innovation);
 
-            return previousValue + previousValue * RiskFreeRate * 1 / 365 +
-                   previousValue * DailyVolatility * innovation;
+            //return previousValue + previousValue * RiskFreeRate * 1 / 365 +
+            //       previousValue * AnnualVolatility * innovation;
         }
 
         public double GetValueAtDate(DateTime valuationDate, Func<double, double> payOffFunction)

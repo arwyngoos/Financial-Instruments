@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Accord.Statistics.Distributions.Univariate;
+using FinancialInstruments.Utilities;
 using FinancialInstruments.Utils;
 
 namespace FinancialInstruments.FinancialProducts
 {
     public class BlackScholesOption : Option
     {
-        public Enums.OptionType OptionType;
+        public double BlackScholesValue;
 
-        public BlackScholesOption(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate, Enums.OptionType optionType)
-            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate)
+        public BlackScholesOption(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate, Enums.OptionType optionType, Func<double, double> payOffFunction)
+            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, optionType, payOffFunction)
         {
-            OptionType = optionType;
             SetBlackScholesPrice();
         }
 

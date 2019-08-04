@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Accord.Statistics.Distributions.Univariate;
 
-namespace FinancialInstruments.Utils
+namespace FinancialInstruments.Utilities
 {
     public static class Statistics
     {

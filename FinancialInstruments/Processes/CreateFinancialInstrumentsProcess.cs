@@ -23,7 +23,23 @@ namespace FinancialInstruments.Processes
                 stocks.Add(stockId, new Stock(stockId, observations[stockId]));
             }
 
+            AddOptionsToStocks(stocks);
+
             return stocks;
+        }
+
+        private void AddOptionsToStocks(SortedDictionary<string, Stock> stocks)
+        {
+            foreach (Stock stock in stocks.Values)
+            {
+                stock.OptionPrice = new EuropeanCall(
+                    stock.CurrentValue, 
+                    stock.CurrentVolatility,
+                    0.02,
+                    stock.CurrentValue,
+                    stock.LastObservation.AddYears(2),
+                    stock.LastObservation);
+            }
         }
     }
 }

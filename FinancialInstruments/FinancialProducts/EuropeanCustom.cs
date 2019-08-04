@@ -9,13 +9,9 @@ namespace FinancialInstruments.FinancialProducts
 {
     public class EuropeanCustom : Option
     {
-        public Enums.OptionType OptionType = Enums.OptionType.Custom;
-
-        public EuropeanCustom(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate, Func<double, double, double> payOffFunction)
-            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate)
+        public EuropeanCustom(double strike, double dailyVolatility, double riskFreeRate, double stockPrice, DateTime maturity, DateTime valuationDate, Func<double, double> payOffFunction)
+            : base(strike, dailyVolatility, riskFreeRate, stockPrice, maturity, valuationDate, Enums.OptionType.Custom, payOffFunction)
         {
-            PayOffFunction = payOffFunction;
         }
-
     }
 }

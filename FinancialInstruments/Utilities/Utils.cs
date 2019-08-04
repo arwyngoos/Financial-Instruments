@@ -5,8 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinancialInstruments.Utils;
 
-namespace FinancialInstruments.Utils
+namespace FinancialInstruments.Utilities
 {
     public static class Utils
     {

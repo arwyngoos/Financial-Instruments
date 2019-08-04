@@ -95,10 +95,10 @@
     <Compile Include="RiskMetrics\ValueAtRisk.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SQL\SqlConnector.cs" />
-    <Compile Include="Utils\Enums.cs" />
-    <Compile Include="Utils\Extensions.cs" />
-    <Compile Include="Utils\Statistics.cs" />
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Utilities\Enums.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Utilities\Statistics.cs" />
+    <Compile Include="Utilities\Utils.cs" />
     <Compile Include="WebDownload\WebDataDownloader.cs" />
   </ItemGroup>
   <ItemGroup>

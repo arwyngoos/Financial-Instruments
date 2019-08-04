@@ -59,7 +59,7 @@ namespace FinancialInstruments.Processes
             new WriteToSqlProcess()
         };
 
-        public static List<IProcess> ReadFromSqlAndCreateFinancialInstuments => new List<IProcess>
+        public static List<IProcess> ReadFromSqlAndCreateFinancialInstruments => new List<IProcess>
         {
             new ReadFromSqlProcess(),
             new CreateFinancialInstrumentsProcess()
