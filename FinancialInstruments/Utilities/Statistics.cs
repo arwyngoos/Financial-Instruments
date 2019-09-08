@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Accord.Statistics.Distributions.Univariate;
 
 namespace FinancialInstruments.Utilities
@@ -8,13 +9,8 @@ namespace FinancialInstruments.Utilities
         public static List<double> GenerateStandardNormalRandomNumbers(int numberOfDraws)
         {
             NormalDistribution normalDistribution = new NormalDistribution();
-            List<double> draws = new List<double>();
-            for (int i = 0; i < numberOfDraws; i++)
-            {
-                draws.Add(normalDistribution.Generate());
-            }
 
-            return draws;
+            return normalDistribution.Generate(numberOfDraws).ToList();
         }
     }
 }
