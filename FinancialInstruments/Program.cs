@@ -8,9 +8,9 @@ namespace FinancialInstruments
     {
         static void Main()
         {
-            Console.WriteLine("This is the financial instuments tool by Arwyn Goos");
+            Console.WriteLine("This is the financial instruments tool by Arwyn Goos");
 
-            List<IProcess> processList = PredefinedProcesses.ReadFromSqlAndCreateFinancialInstruments;
+            List<IProcess> processList = PredefinedProcesses.ReadFromSql;
             
             foreach(IProcess process in processList)
             {

@@ -6,7 +6,8 @@ namespace FinancialInstruments.Processes
     {
         public void Run()
         {
-            DataObject.ReadExcelProcessOutput = ExcelReader.ReadExcelFiles();
+            DataObject.StockObservationsFromExcel = ExcelReader.ReadStockExcelFiles();
+            DataObject.InterestRateObservationsFromExcel = ExcelReader.ReadInterestRateExcelFiles();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace FinancialInstruments.Processes
         {
             new ReadExcelProcess(),
             new WriteToSqlProcess(),
-            new ReadExcelProcess()
+            new ReadFromSqlProcess()
         };
 
         public static List<IProcess> ReadFromSql => new List<IProcess>

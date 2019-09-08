@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FinancialInstruments.Utilities
 {
@@ -38,6 +39,11 @@ namespace FinancialInstruments.Utilities
             }
 
             return dates;
+        }
+
+        public static List<T> CreateList<T>(int capacity)
+        {
+            return Enumerable.Repeat(default(T), capacity).ToList();
         }
     }
 }

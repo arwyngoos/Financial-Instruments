@@ -12,7 +12,7 @@ namespace FinancialInstruments.Json
     {
         public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadJsonFiles()
         {
-            string folder = Settings.DataDirectory;
+            string folder = Settings.StockDataDirectory;
 
             if (Settings.InputDataType != Enums.InputDataType.Json)
             {

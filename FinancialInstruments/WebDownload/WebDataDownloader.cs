@@ -10,7 +10,7 @@ namespace FinancialInstruments.WebDownload
             {
                 foreach(string productId in Settings.ProductCollection)
                 {
-                    client.DownloadFile(GetUrl(productId), $"{Settings.DataDirectory}/{productId}.{Settings.InputDataType.ToString().ToLower()}");
+                    client.DownloadFile(GetUrl(productId), $"{Settings.StockDataDirectory}/{productId}.{Settings.InputDataType.ToString().ToLower()}");
                 }
                 
             }

@@ -28,7 +28,7 @@ namespace FinancialInstruments.FinancialProducts
             Observations = observations;
 
             Returns = GetReturns();
-            EwmaVolatilityPath = GetEwmaVolatility();
+            EwmaVolatilityPath = GetEwmaVolatilityPath();
         }
 
         private SortedDictionary<DateTime, double> GetReturns()
@@ -43,7 +43,7 @@ namespace FinancialInstruments.FinancialProducts
             return returns;
         }
 
-        private SortedDictionary<DateTime, double> GetEwmaVolatility()
+        private SortedDictionary<DateTime, double> GetEwmaVolatilityPath()
         {
             SortedDictionary<DateTime, double> volatilityPath = new SortedDictionary<DateTime, double>();
             List<DateTime> dates = Returns.Keys.ToList();

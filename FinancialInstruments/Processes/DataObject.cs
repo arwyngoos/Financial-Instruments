@@ -6,9 +6,13 @@ namespace FinancialInstruments.Processes
 {
     public static class DataObject
     {
-        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadExcelProcessOutput;
+        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> StockObservationsFromExcel;
 
-        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadFromSqlProcessOutput;
+        public static SortedDictionary<string, SortedDictionary<DateTime, double?>> InterestRateObservationsFromExcel;
+
+        public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadStockDataFromSqlOutput;
+
+        public static SortedDictionary<string, SortedDictionary<DateTime, double?>> ReadInterestRateDataFromSqlOutput;
 
         public static SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> ReadJsonProcessOutput;
 

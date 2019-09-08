@@ -7,8 +7,13 @@ namespace FinancialInstruments.Processes
     {
         public void Run()
         {
-            SqlConnector sqlConnector = new SqlConnector();
-            DataObject.ReadFromSqlProcessOutput = sqlConnector.ReadFromDataBase().ParseDataTableToSortedDictionary();
+            DataObject.ReadStockDataFromSqlOutput = SqlReader
+                .ReadStockDataFromDataBase()
+                .ParseStockDataTableToSortedDictionary();
+
+            DataObject.ReadInterestRateDataFromSqlOutput = SqlReader
+                .ReadInterestRateDataFromDataBase()
+                .ParseInterestRateDataTableToSortedDictionary();
         }
     }
 }

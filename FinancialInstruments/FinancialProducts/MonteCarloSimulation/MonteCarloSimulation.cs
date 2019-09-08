@@ -6,7 +6,7 @@ namespace FinancialInstruments.FinancialProducts
 {
     public class MonteCarloSimulation
     {
-        public SortedDictionary<int, SortedDictionary<DateTime, double>> MonteCarloPaths = new SortedDictionary<int, SortedDictionary<DateTime, double>>();
+        public List<SortedDictionary<DateTime, double>> MonteCarloPaths = new List<SortedDictionary<DateTime, double>>();
 
         public double AnnualVolatility;
 
@@ -27,12 +27,7 @@ namespace FinancialInstruments.FinancialProducts
             ValuationDate = valuationDate;
         }
 
-        public void AddMonteCarloPath()
-        {
-            MonteCarloPaths.Add(MonteCarloPaths.Keys.Count + 1, SimulatePath());
-        }
-
-        private SortedDictionary<DateTime, double> SimulatePath()
+        internal SortedDictionary<DateTime, double> SimulatePath()
         {
             SortedDictionary<DateTime, double> simulatedPath = new SortedDictionary<DateTime, double>();
 
@@ -61,12 +56,17 @@ namespace FinancialInstruments.FinancialProducts
         {
             List<double> payOffs = new List<double>();
 
-            foreach(int simulationNumber in MonteCarloPaths.Keys)
+            foreach(SortedDictionary <DateTime, double> simulation in MonteCarloPaths)
             {
-                payOffs.Add(payOffFunction(MonteCarloPaths[simulationNumber][valuationDate]));
+                payOffs.Add(payOffFunction(simulation[valuationDate]));
             }
 
             return payOffs.Mean();
+        }
+
+        public void AddMonteCarloPath()
+        {
+            MonteCarloPaths.Add(SimulatePath());
         }
     }
 }

@@ -8,7 +8,7 @@ namespace FinancialInstruments.Processes
     {
         public void Run()
         {
-            DataObject.Stocks = CreateStocks(DataObject.ReadFromSqlProcessOutput);
+            DataObject.Stocks = CreateStocks(DataObject.ReadStockDataFromSqlOutput);
         }
 
         private SortedDictionary<string, Stock> CreateStocks(SortedDictionary<string, SortedDictionary<DateTime, StockObservation>> observations)
